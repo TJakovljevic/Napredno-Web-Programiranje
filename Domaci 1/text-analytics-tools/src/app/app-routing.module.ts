@@ -6,6 +6,7 @@ import {TextSimilarityComponent} from "./components/text-similarity/text-similar
 import {LanguageDetectionComponent} from "./components/language-detection/language-detection.component";
 import {SentimentAnalysisComponent} from "./components/sentiment-analysis/sentiment-analysis.component";
 import {ConfigurationComponent} from "./components/configuration/configuration.component";
+import {HistoryComponent} from "./components/history/history.component";
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
   },
   {
     path:"text-similarity",
-    component:TextSimilarityComponent,
+    component: TextSimilarityComponent,
   },
   {
     path:"language-detection",
@@ -31,9 +32,14 @@ const routes: Routes = [
     component:SentimentAnalysisComponent,
   },
   {
+    path:"history",
+    component:HistoryComponent,
+  },
+  {
     path:"configuration",
     component:ConfigurationComponent,
   },
+
 
 
 ];

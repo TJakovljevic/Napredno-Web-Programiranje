@@ -1,1 +1,10 @@
-<p>language-detection works!</p>
+<div>
+  <h2>Language Detection</h2>
+  <p>Enter the text you want us to the detect the language from:</p>
+  <input type="text" className="form-control">
+  <div>
+    <input type="checkbox" [(ngModel)]="clean"> Clean
+  </div>
+  <div>
+    <button (click)="detectLanguage()">Submit</button>
+  </div>

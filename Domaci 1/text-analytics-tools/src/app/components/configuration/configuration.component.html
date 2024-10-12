@@ -1,1 +1,14 @@
-<p>configuration works!</p>
+<div>
+  <h2>Configuration</h2>
+
+
+  <h3>Enter your token or edit your current one:</h3>
+  <form (ngSubmit)="setAuthToken()" class="mb-5">
+    <div class="form-group mb-2">
+      <label for="token">Token</label>
+      <input type="text" class="form-control" id="token" name="token" placeholder="Enter your token" [(ngModel)]="token">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+</div>

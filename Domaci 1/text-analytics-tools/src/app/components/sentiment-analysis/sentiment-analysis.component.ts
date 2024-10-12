@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {SentimentAnalysisService} from "../../services/sentiment-analysis.service";
 
 @Component({
   selector: 'app-sentiment-analysis',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class SentimentAnalysisComponent {
 
+    text: string ="";
+    type: string ="" ;
+    language: string="";
+
+
+    constructor(private sentimentAnalysisService: SentimentAnalysisService) {
+    }
+
+    sentimentAnalysis(): void{
+      this.sentimentAnalysisService.sentimentAnalysis()
+    }
 }

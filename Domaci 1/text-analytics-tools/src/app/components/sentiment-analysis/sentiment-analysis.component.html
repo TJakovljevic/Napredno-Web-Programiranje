@@ -1,1 +1,15 @@
-<p>sentiment-analysis works!</p>
+<div>
+  <h2>Sentiment Analysis</h2>
+  <p>Enter the text:</p>
+  <input type="text" className="form-control">
+  <div>
+    <label for="language">Select Language:</label>
+    <select id="language" [(ngModel)]="language">
+      <option value=""></option>
+      <option value="auto">Auto</option>
+      <option value="en">English</option>
+      <option value="it">Italian</option>
+    </select>
+  </div>
+    <button (click)="sentimentAnalysis()">Submit</button>
+  </div>

@@ -1,1 +1,32 @@
-<p>entity-extraction works!</p>
+<div>
+  <h2>Entity extraction</h2>
+  <p>Enter the text you want to detect:</p>
+  <input type="text" className="form-control">
+  <div>
+    <label for="slider">Adjust the slider value:</label>
+    <input type="range" id="slider" min="0" max="100" [value]="sliderValue * 100" (input)="onSliderInput($event)">
+    <p>Slider Value: {{ sliderValue | percent }}</p>
+  </div>
+  <p>Include parameters: </p>
+  <div>
+    <input type="checkbox" [(ngModel)]="isImageChecked"> Image
+    <input type="checkbox" [(ngModel)]="isAbstractChecked"> Abstract
+    <input type="checkbox" [(ngModel)]="isCategoriesChecked"> Categories
+  </div>
+  <div>
+    <button (click)="sendRequest()">Submit</button>
+  </div>
+
+
+  <div *ngIf="isImageChecked">
+    <p>Image option selected!</p>
+  </div>
+  <div *ngIf="isAbstractChecked">
+    <p>Abstract option selected!</p>
+  </div>
+  <div *ngIf="isCategoriesChecked">
+    <p>Categories option selected!</p>
+  </div>
+</div>
+
+
