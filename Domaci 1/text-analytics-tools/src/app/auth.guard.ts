@@ -21,12 +21,12 @@ export class AuthGuard implements CanActivate, CanDeactivate<unknown> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    console.log('canActivate')
-    this.router.navigate(['configuration'])
+    const token = localStorage.getItem('authToken');
 
-    localStorage.setItem('item1', 'value1'); //  localStorage se pamti na nivou brauzera
-    console.log(localStorage.getItem('item1'));
-    // localStorage.removeItem('item1');
+    if (!token) {
+      this.router.navigate(['configuration']);
+      return false;
+    }
 
     return true;
   }
