@@ -4,9 +4,10 @@ export interface Image{
 }
 
 export interface EntityExtraction{
-  images: Image[];
-  abstract: string;
-  categories: string[];
+  spot: string,
+  image?: Image;
+  abstract?: string;
+  categories?: string[];
 }
 
 export interface Language{

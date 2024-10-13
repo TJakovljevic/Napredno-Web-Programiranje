@@ -11,6 +11,7 @@ import { SentimentAnalysisComponent } from './components/sentiment-analysis/sent
 import { HomeComponent } from './components/home/home.component';
 import {FormsModule} from "@angular/forms";
 import { HistoryComponent } from './components/history/history.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { HistoryComponent } from './components/history/history.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.dandelion.eu/datatxt/'
+  api: 'https://api.dandelion.eu/datatxt/',
+  token: "116b5141ed2c4adfbb8af87923f45d63"
 };
 
 /*

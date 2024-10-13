@@ -1,32 +1,39 @@
 <div>
-  <h2>Entity extraction</h2>
-  <p>Enter the text you want to detect:</p>
-  <input type="text" className="form-control">
-  <div>
+  <form (ngSubmit)="sendRequest()">
+    <h2>Entity Extraction</h2>
+
+    <!-- Text Input -->
+    <label for="text_id">Enter the text you want to detect:</label>
+    <input type="text" id="text_id" class="form-control" [(ngModel)]="text" name="textInput" placeholder="Text" required>
+
     <label for="slider">Adjust the slider value:</label>
-    <input type="range" id="slider" min="0" max="100" [value]="sliderValue * 100" (input)="onSliderInput($event)">
-    <p>Slider Value: {{ sliderValue | percent }}</p>
-  </div>
-  <p>Include parameters: </p>
-  <div>
-    <input type="checkbox" [(ngModel)]="isImageChecked"> Image
-    <input type="checkbox" [(ngModel)]="isAbstractChecked"> Abstract
-    <input type="checkbox" [(ngModel)]="isCategoriesChecked"> Categories
-  </div>
-  <div>
-    <button (click)="sendRequest()">Submit</button>
+    <input type="range" id="slider" min="0" max="100" [value]="confidence_level * 100" (input)="onSliderInput($event)">
+    <p>Slider Value: {{ confidence_level | percent }}</p>
+    <p>Include parameters: </p>
+    <div>
+      <label><input type="checkbox" [(ngModel)]="isImageChecked" name="includeImage"> Image</label>
+      <label><input type="checkbox" [(ngModel)]="isAbstractChecked" name="includeAbstract"> Abstract</label>
+      <label><input type="checkbox" [(ngModel)]="isCategoriesChecked" name="includeCategories"> Categories</label>
+    </div>
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+
+  <div *ngIf="results">
+    <h3>Extracted Entities</h3>
+    <div *ngFor="let entity of results">
+      <p>{{ entity.spot }}</p>
+      <div *ngIf="entity.image && isImageChecked">
+        <img [src]="entity.image.thumbnail" alt="Entity Image">
+      </div>
+      <div *ngIf="entity.abstract && isAbstractChecked">
+        <p>Abstract: {{ entity.abstract }}</p>
+      </div>
+      <div *ngIf="entity.categories && isCategoriesChecked">
+        <p>Categories: {{ entity.categories.join(', ') }}</p>
+      </div>
+    </div>
   </div>
 
-
-  <div *ngIf="isImageChecked">
-    <p>Image option selected!</p>
-  </div>
-  <div *ngIf="isAbstractChecked">
-    <p>Abstract option selected!</p>
-  </div>
-  <div *ngIf="isCategoriesChecked">
-    <p>Categories option selected!</p>
-  </div>
 </div>
-
-
