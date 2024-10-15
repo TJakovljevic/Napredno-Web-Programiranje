@@ -1,10 +1,20 @@
 <div>
+  <form (ngSubmit)="sendRequest()">
   <h2>Language Detection</h2>
   <p>Enter the text you want us to the detect the language from:</p>
-  <input type="text" className="form-control">
+  <input type="text" className="form-control" name="text" [(ngModel)]="text">
   <div>
-    <input type="checkbox" [(ngModel)]="clean"> Clean
+    <input type="checkbox" name="checkbox" [(ngModel)]="clean"> Clean
   </div>
-  <div>
-    <button (click)="detectLanguage()">Submit</button>
+    <button type="submit">Submit</button>
+  </form>
+
+
+  <div *ngIf="results">
+    <div *ngFor="let language of results">
+      <h3>Language: {{language.lang}}</h3>
+      <h3>Confidence level: {{language.confidence}}</h3>
+    </div>
+
   </div>
+</div>

@@ -1,7 +1,3 @@
-export interface Image{
-  full: string;
-  thumbnail: string;
-}
 
 export interface EntityExtraction{
   spot: string,
@@ -10,7 +6,21 @@ export interface EntityExtraction{
   categories?: string[];
 }
 
-export interface Language{
+export interface Image{
+  full: string;
+  thumbnail: string;
+}
+
+export interface LanguageDetection{
   lang: string;
-  confidence: string;
+  confidence: number
+}
+
+export interface TextSimilarity{
+  similarity: number
+}
+
+export interface SentimentAnalysis{
+  score: number;
+  type: string;
 }

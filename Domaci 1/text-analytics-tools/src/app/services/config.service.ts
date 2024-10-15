@@ -14,7 +14,5 @@ export class ConfigService {
     localStorage.setItem(this.tokenKey, token);
   }
 
-  getToken(): string{
-    return this.tokenKey;
-  }
+
 }

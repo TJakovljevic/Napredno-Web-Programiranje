@@ -19,10 +19,11 @@ export class ConfigurationComponent implements OnInit {
   setAuthToken(): void{
     if(this.token){
       this.configService.setToken(this.token);
-      console.log('Token saved:', this.token);
+      alert("Token successfully updated")
     }else{
-      alert("You don't have a token.")
+      alert("The field is empty.")
     }
+    this.token = ""
   }
 
 }

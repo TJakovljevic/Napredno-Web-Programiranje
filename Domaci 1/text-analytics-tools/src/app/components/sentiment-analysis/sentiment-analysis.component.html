@@ -1,15 +1,62 @@
 <div>
+  <form (ngSubmit)="sendRequest()">
   <h2>Sentiment Analysis</h2>
-  <p>Enter the text:</p>
-  <input type="text" className="form-control">
+  <label for="text">Enter the text:</label>
+  <input type="text" id="text" name="text" className="form-control" [(ngModel)]="text">
   <div>
     <label for="language">Select Language:</label>
-    <select id="language" [(ngModel)]="language">
-      <option value=""></option>
+    <select id="language"  name="lanugage" [(ngModel)]="language">
+      <option value=null></option>
       <option value="auto">Auto</option>
       <option value="en">English</option>
       <option value="it">Italian</option>
     </select>
   </div>
-    <button (click)="sentimentAnalysis()">Submit</button>
+    <button type="submit">Submit</button>
+  </form>
+
+
+  <div *ngIf="results">
+    <h2>Sentiment Analysis</h2>
+    <div class="gradient-bar">
+      <span class="label left">-1</span>
+      <span class="label center">0</span>
+      <span class="label right">1</span>
+    </div>
+    <p [style.color]="getColor(results.score)">
+      Type: {{results.type}}, ({{results.score}})
+    </p>
+
   </div>
+</div>
+
+<style>
+  .gradient-bar {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to right, red 0%,saddlebrown 50%, green 100%);
+    border: 1px solid #000;
+    margin: 20px 0;
+  }
+
+  .label {
+    position: absolute;
+    top: 35px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+  }
+
+  .left {
+    left: 0;
+  }
+
+  .center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .right {
+    right: 0;
+  }
+</style>

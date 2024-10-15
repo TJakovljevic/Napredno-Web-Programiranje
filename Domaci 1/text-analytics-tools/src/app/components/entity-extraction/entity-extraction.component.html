@@ -2,7 +2,6 @@
   <form (ngSubmit)="sendRequest()">
     <h2>Entity Extraction</h2>
 
-    <!-- Text Input -->
     <label for="text_id">Enter the text you want to detect:</label>
     <input type="text" id="text_id" class="form-control" [(ngModel)]="text" name="textInput" placeholder="Text" required>
 
@@ -20,7 +19,7 @@
     </div>
   </form>
 
-  <div *ngIf="results">
+  <div *ngIf="results.length > 0">
     <h3>Extracted Entities</h3>
     <div *ngFor="let entity of results">
       <p>{{ entity.spot }}</p>

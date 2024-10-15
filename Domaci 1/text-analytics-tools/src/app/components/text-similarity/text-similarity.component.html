@@ -1,12 +1,18 @@
 <div>
-  <h2>Text Similarity</h2>
-  <div>
-    <label for="text-field1">Enter your first text:</label>
-    <input type="text" id="text-field1" [(ngModel)]="text1" placeholder="Text">
+  <form (ngSubmit)="sendRequest()">
+    <h2>Text Similarity</h2>
+    <div>
+      <label for="text-field1">Enter your first text:</label>
+      <input type="text" id="text-field1" name="textInput1" [(ngModel)]="text1" placeholder="Text">
+    </div>
+    <div>
+      <label for="text-field2">Enter your second text:</label>
+      <input type="text" id="text-field2" name="textInput2"[(ngModel)]="text2" placeholder="Text">
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div *ngIf="results">
+    <h2>Similarity: {{results.similarity.toFixed(2)}}</h2>
   </div>
-  <div>
-    <label for="text-field2">Enter your second text:</label>
-    <input type="text" id="text-field2" [(ngModel)]="text2" placeholder="Text">
-  </div>
-  <button (click)="compare()">Submit</button>
 </div>
