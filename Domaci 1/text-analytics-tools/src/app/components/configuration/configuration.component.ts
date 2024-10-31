@@ -9,7 +9,7 @@ import {ConfigService} from "../../services/config.service";
 export class ConfigurationComponent implements OnInit {
 
   token: string = '';
-  //token: 116b5141ed2c4adfbb8af87923f45d63
+
 
   constructor(private configService: ConfigService) {}
 
