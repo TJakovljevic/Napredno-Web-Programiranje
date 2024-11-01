@@ -1,6 +1,7 @@
 package di;
 
 import annotations.*;
+import framework.request.enums.Scope;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class DIEngine {
                 }
             }
         }
-        System.out.println("Anotirane: " + annotatedClasses);
+//        System.out.println("Anotirane: " + annotatedClasses);
 
         return annotatedClasses;
     }
@@ -81,6 +82,8 @@ public class DIEngine {
     public Object initializeBean(Class<?> clazz) throws Exception {
         // Proverava da li je već inicijalizovan singleton bean
         if (singletonBeans.containsKey(clazz)) {
+            System.out.println("Singleton: " + singletonBeans);
+            System.out.println("DIEngine: Vraćam postojeću instancu za " + clazz.getSimpleName());
             return singletonBeans.get(clazz);
         }
 
@@ -89,19 +92,24 @@ public class DIEngine {
         }
 
         // Kreira instancu i injectuje zavisnosti
+        System.out.println("IoCContainer: Kreiram novu instancu za " + clazz.getSimpleName());
         Object instance = clazz.getDeclaredConstructor().newInstance();
 
 
         //Ovde se odradi onaj deo za singleton unutar Service ili scope=singleton
         if (isSingletonScope(clazz)) {
+            System.out.println("PROVERA KLASA: " + clazz);
             singletonBeans.put(clazz, instance);
         }
+        System.out.println("Nerealno je da ne radi singleton: " + singletonBeans);
 
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Autowired.class)) {
                 if (!isBeanField(field.getType())) {
                     throw new Exception("Field " + field.getName() + " in class " + clazz.getName() + " is @Autowired but does not correspond to a bean.");
                 }
+                System.out.println("IoCContainer: Injektujem zavisnost " + field.getType().getSimpleName() +
+                        " u " + clazz.getSimpleName());
                 injectField(instance, field);
             }
         }
@@ -112,7 +120,7 @@ public class DIEngine {
         mapRoutes(clazz);
 
         // Here you can print or log the route mappings
-        System.out.println("Route mappings for class " + clazz.getName() + ": " + routeMappings);
+      System.out.println("Route mappings for class " + clazz.getName() + ": " + routeMappings);
 
 
         return instance;
@@ -125,6 +133,11 @@ public class DIEngine {
 
 
     private void mapRoutes(Class<?> clazz) throws Exception {
+        if (!clazz.isAnnotationPresent(Controller.class)) {
+            return; // Preskoči klase koje nisu anotirane sa @Controller
+        }
+
+        // Ako je klasa odgovarajuća, nastavi sa mapiranjem ruta
         for (Method method : clazz.getDeclaredMethods()) {
             String path = null;
             if (method.isAnnotationPresent(Path.class)) {
@@ -140,7 +153,6 @@ public class DIEngine {
                 String fullPath = "POST " + path;
                 checkRouteUniqueness(fullPath);
                 routeMappings.put(fullPath, method);
-
             }
         }
     }
@@ -214,19 +226,33 @@ public class DIEngine {
     }
     private boolean isSingletonScope(Class<?> clazz) {
         if (clazz.isAnnotationPresent(Service.class)) return true;
-        Bean bean = clazz.getAnnotation(Bean.class);
-        return bean == null || "singleton".equals(bean.scope());
+        if (clazz.isAnnotationPresent(Component.class)) return false;
+        Bean bean = findBeanAnnotation(clazz);
+        return bean == null || bean.scope() == Scope.SINGLETON;
     }
 
+    private Bean findBeanAnnotation(Class<?> clazz) {
+        while (clazz != null) {
+            Bean bean = clazz.getAnnotation(Bean.class);
+            if (bean != null) {
+                return bean;
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return null;
+    }
     public void handleRequest(String httpMethod, String path) {
         String fullPath = httpMethod + " " + path;
         Method method = routeMappings.get(fullPath);
+
+
 
         if (method != null) {
             try {
                 Class<?> controllerClass = method.getDeclaringClass();
                 // Preuzmite instancu kontrolera
                 Object controllerInstance = singletonBeans.get(controllerClass);
+                System.out.println("Controller: " + controllerInstance);
                 method.invoke(controllerInstance);
             } catch (Exception e) {
                 e.printStackTrace(); // Obrada greške

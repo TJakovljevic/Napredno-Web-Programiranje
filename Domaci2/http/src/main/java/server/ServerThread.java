@@ -22,13 +22,14 @@ public class ServerThread implements Runnable{
     private BufferedReader in;
     private PrintWriter out;
 
-    DependencyContainer container = new DependencyContainer(); // Initialize your container
-    DIEngine diEngine = new DIEngine(container);
+    DIEngine diEngine;
 
 
 
-    public ServerThread(Socket socket){
+
+    public ServerThread(Socket socket, DIEngine diEngine){
         this.socket = socket;
+        this.diEngine = diEngine;
 
         try {
             in = new BufferedReader(
