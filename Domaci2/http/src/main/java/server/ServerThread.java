@@ -40,7 +40,7 @@ public class ServerThread implements Runnable{
                     new BufferedWriter(
                             new OutputStreamWriter(
                                     socket.getOutputStream())), true);
-            diEngine.initialize();
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

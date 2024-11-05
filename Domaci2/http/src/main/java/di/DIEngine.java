@@ -82,7 +82,7 @@ public class DIEngine {
     public Object initializeBean(Class<?> clazz) throws Exception {
         // Proverava da li je već inicijalizovan singleton bean
         if (singletonBeans.containsKey(clazz)) {
-            System.out.println("Singleton: " + singletonBeans);
+//            System.out.println("Singleton: " + singletonBeans);
             System.out.println("DIEngine: Vraćam postojeću instancu za " + clazz.getSimpleName());
             return singletonBeans.get(clazz);
         }
@@ -98,10 +98,10 @@ public class DIEngine {
 
         //Ovde se odradi onaj deo za singleton unutar Service ili scope=singleton
         if (isSingletonScope(clazz)) {
-            System.out.println("PROVERA KLASA: " + clazz);
+//            System.out.println("PROVERA KLASA: " + clazz);
             singletonBeans.put(clazz, instance);
         }
-        System.out.println("Nerealno je da ne radi singleton: " + singletonBeans);
+//        System.out.println("Nerealno je da ne radi singleton: " + singletonBeans);
 
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Autowired.class)) {

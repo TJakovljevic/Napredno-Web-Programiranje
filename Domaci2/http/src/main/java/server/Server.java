@@ -23,6 +23,8 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(TCP_PORT);
             System.out.println("Server is running at http://localhost:"+TCP_PORT);
+            //Opet je fora da se inicijalizuje samo 1, a ne svaki put pri pozivu serverThread-a
+            diEngine.initialize();
             while(true){
                 Socket socket = serverSocket.accept();
                 new Thread(new ServerThread(socket, diEngine)).start();
@@ -30,6 +32,8 @@ public class Server {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
     }
