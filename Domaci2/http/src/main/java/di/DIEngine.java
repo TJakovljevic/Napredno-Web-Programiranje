@@ -61,8 +61,8 @@ public class DIEngine {
         return annotatedClasses;
     }
     public void initialize() throws Exception {
-        registerInterfacesAutomatically(); // Dodato automatsko mapiranje
-        initializeControllers(); // Nastavite sa inicijalizacijom kontrolera
+        registerInterfacesAutomatically();
+        initializeControllers();
         initializeComponents();
     }
     public void initializeControllers() throws Exception {
@@ -116,10 +116,10 @@ public class DIEngine {
         checkUniqueQualifier(clazz);
 
 
-        // Inspect methods for @GET, @POST, and @Path annotations
+
         mapRoutes(clazz);
 
-        // Here you can print or log the route mappings
+
       System.out.println("Route mappings for class " + clazz.getName() + ": " + routeMappings);
 
 
@@ -127,7 +127,7 @@ public class DIEngine {
     }
 
     private boolean isBeanField(Class<?> fieldType) {
-        // Check if the field type has any of the required bean annotations
+
         return fieldType.isAnnotationPresent(Bean.class) || fieldType.isAnnotationPresent(Service.class) || fieldType.isAnnotationPresent(Component.class);
     }
 
@@ -169,12 +169,12 @@ public class DIEngine {
         Object dependency = fieldType.isInterface() ? resolveQualifiedDependency(field, fieldType) : initializeBean(fieldType);
 
 
-        if(field.isAnnotationPresent(Qualifier.class)){
-            String qualifier = field.getAnnotation(Qualifier.class).value();
-            dependency = container.getBean(fieldType, qualifier);
-        }
-        // Verbalni mod za praćenje inicijalizacije
-        field.set(instance, dependency);
+//        if(field.isAnnotationPresent(Qualifier.class)){
+//            String qualifier = field.getAnnotation(Qualifier.class).value();
+//            dependency = container.getBean(fieldType, qualifier);
+//        }
+//        // Verbalni mod za praćenje inicijalizacije
+//        field.set(instance, dependency);
 
         // Verbose logging if enabled
         if (autowired.verbose()) {
@@ -210,9 +210,8 @@ public class DIEngine {
     private void registerInterfacesAutomatically() throws Exception {
         for (Class<?> clazz : getAnnotatedClasses(Service.class)) {
             for (Class<?> interfaceClass : clazz.getInterfaces()) {
-                // Assuming you need to provide a qualifier and possibly a scope or other argument
-                String qualifier = clazz.getAnnotation(Qualifier.class).value(); // Example of generating a qualifier
-                container.registerInterface(interfaceClass, clazz, qualifier); // Adjust according to your actual method signature
+                String qualifier = clazz.getAnnotation(Qualifier.class).value();
+                container.registerInterface(interfaceClass, clazz, qualifier);
             }
         }
     }

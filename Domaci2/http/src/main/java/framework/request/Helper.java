@@ -28,26 +28,25 @@ public class Helper {
     public static HashMap<String, String> parseJsonToMap(String jsonString) {
         HashMap<String, String> jsonMap = new HashMap<>();
 
-        // Remove curly braces and whitespace
         jsonString = jsonString.trim().replaceAll("[{}]", "");
 
-        // Split the string by commas to get key-value pairs
+
         String[] keyValuePairs = jsonString.split(",");
 
         for (String pair : keyValuePairs) {
-            // Split by colon to separate keys and values
+
             String[] keyValue = pair.split(":");
 
-            if (keyValue.length == 2) { // Ensure there are exactly two elements
-                String key = keyValue[0].trim().replace("\"", ""); // Remove quotes from key
-                String value = keyValue[1].trim().replace("\"", ""); // Remove quotes from value
+            if (keyValue.length == 2) {
+                String key = keyValue[0].trim().replace("\"", "");
+                String value = keyValue[1].trim().replace("\"", "");
                 jsonMap.put(key, value);
             } else {
-                // Handle case where the key-value pair is not valid
+
                 System.out.println("Invalid key-value pair: " + pair);
             }
         }
 
-        return jsonMap; // Return the populated map
+        return jsonMap;
     }
 }
