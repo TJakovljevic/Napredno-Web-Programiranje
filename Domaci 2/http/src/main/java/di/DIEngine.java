@@ -133,7 +133,7 @@ public class DIEngine {
 
 
     private void mapRoutes(Class<?> clazz) throws Exception {
-        if (!clazz.isAnnotationPresent(Controller.class)) {
+        if (!clazz.isAnnotationPresent(Controller.class))  {
             return; // Preskoči klase koje nisu anotirane sa @Controller
         }
 
@@ -198,13 +198,17 @@ public class DIEngine {
             if (dependency == null) {
                 throw new Exception("No implementation found in DependencyContainer for interface: " + fieldType.getName() + " with qualifier: " + qualifier);
             }
+            System.out.println("USLI SMO OVDe");
+            field.set(instance, dependency);
         } else {
-            // Ako nije interfejs, inicijalizuje bean
             dependency = initializeBean(fieldType);
+            System.out.println("NISMO USLI OVDE");
+            // Ako nije interfejs, inicijalizuje bean
+
         }
 
         // Postavljanje zavisnosti
-        field.set(instance, dependency);
+
     }
 
     private void registerInterfacesAutomatically() throws Exception {

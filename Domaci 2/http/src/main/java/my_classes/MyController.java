@@ -11,6 +11,12 @@ public class MyController {
     @Autowired(verbose = true)
     private RecursiveServiceNew recursiveServiceNew;
 
+    @Autowired(verbose = true)
+    private MyComponent component;
+
+    @Autowired(verbose = true)
+    private MyComponent component1;
+
     //da se ispise component, i rekurzija, field za setovanje pa gore sve sa ispisima, misli kao rekurznivno da se ispise sve
 
     
